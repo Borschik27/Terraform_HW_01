@@ -3,9 +3,11 @@
 Задание 1
 1.3
 "result": "9ZisODVyRV1e3941"
+
 ![image](https://github.com/user-attachments/assets/a2ebf736-9ceb-452d-bcdd-4ceadc037f54)
 
 1.4
+
 ```
 terraform validate
 ╷
@@ -25,6 +27,7 @@ terraform validate
 │ A name must start with a letter or underscore and may contain only letters, digits,
 │ underscores, and dashes.
 ```
+
 Ошибка заключается в том что в блоке ресурса отсутствует имя ресурса (в дальнейшем "docker_image" "nginx" "docker_container" "nginx")
 
 ```
@@ -50,9 +53,11 @@ CONTAINER ID   IMAGE          COMMAND                  CREATED         STATUS   
       NAMES
 cc15695b8c6b   39286ab8a5e1   "/docker-entrypoint.…"   8 seconds ago   Up 7 seconds   0.0.0.0:9090->80/tcp   hello_world_9ZisODVyRV1e3941
 ```
+
 terraform apply -auto-approve - Выполняет действие при выполнении изменений без запроса подтверждения
 
 1.7
+
 ```
 terraform destroy -auto-approve
 docker_image.nginx: Refreshing state... [id=sha256:39286ab8a5e14aeaf5fdd6e2fac76e0c8d31a0c07224f0ee5e6be502f12e93f3nginx:latest]
@@ -80,7 +85,9 @@ sypchik@Mirror:/mnt/c/Users/Sypchik/Desktop/home work/terraform/answer-hw/clear/
 ocker ps -a
 CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
 ```
+
 Вывод .tfstate
+
 ```
 {
   "version": 4,
@@ -92,19 +99,24 @@ CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
   "check_results": null
 }
 ```
+
 1.8
 Удалению контейнера мешает флаг keep_locally = true
+
 ```
 resource "docker_image" "nginx" {
   name = "nginx:latest"
   keep_locally = true
 }
 ```
+
 ![Screenshot 2024-09-11 194754](https://github.com/user-attachments/assets/200c3734-05ae-4249-8dd6-32627155bab4)
+
 
 Задача 2
 Код представлен в репозитории
 Виртуальная машина создавалась сразу в облаке 
+
 ```
 sypchik@Mirror:~$ ssh ubuntu@84.201.134.224
 ubuntu@fhm1o22373guf3t0l1o4:~$ docker ps
@@ -145,3 +157,4 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 MYSQL_SHELL_VERSION=8.4.1-1.el9
 _=/usr/bin/env
 ```
+
