@@ -5,7 +5,7 @@
 !.terraformrc
 
 # .tfstate files
-*.tfstate
+!*.tfstate
 *.tfstate.*
 
 # own secret vars store.

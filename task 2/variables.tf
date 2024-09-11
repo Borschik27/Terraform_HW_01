@@ -20,6 +20,11 @@ variable "vpc_name" {
   description = "VPC network & subnet name"
 }
 
+variable "network_id" {
+  type        = string
+  description = " network id"
+}
+
 variable "default_zone" {
   type        = string
   default     = "ru-central1-a"
@@ -29,7 +34,7 @@ variable "default_zone" {
 variable "default_cidr" {
   type        = list(string)
   description = "https://cloud.yandex.ru/docs/vpc/operations/subnet-create"
-  default     = ["10.0.1.0/24"]
+  default     = ["10.128.0.0/24"]
 }
 
 variable "image_family" {
@@ -126,3 +131,4 @@ variable "image_docker" {
   type        = string
   description = "Image name"
 }
+

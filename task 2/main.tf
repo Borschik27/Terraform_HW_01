@@ -53,9 +53,12 @@ resource "null_resource" "docker_install" {
     inline = [
       "sudo apt-get update",
       "sudo apt-get install -y docker.io",
-      "sudo usermod -aG docker ubuntu"
+      "sudo usermod -aG docker $USER",
+      "sudo systemctl enable docker",
+      "sudo systemctl start docker"
     ]
   }
+  depends_on = [yandex_compute_instance.vm]
 }
 
 provider "docker" {
@@ -63,11 +66,16 @@ provider "docker" {
   ssh_opts = ["-o", "StrictHostKeyChecking=no", "-o", "UserKnownHostsFile=/dev/null"]
 }
 
+resource "docker_image" "mysql" {
+  name = var.image_docker
+}
+
 # Генерация случайного пароля для root
 resource "random_password" "mysql_root_password" {
   length  = 16
-  special = true
+  special = false
 }
+
 
 # Генерация случайного пароля для пользователя wordpress
 resource "random_password" "mysql_user_password" {
@@ -75,22 +83,20 @@ resource "random_password" "mysql_user_password" {
   special = true
 }
 
-resource "docker_image" "mysql" {
-  name = var.image_docker
-}
-
 resource "docker_container" "mysql" {
+  depends_on = [null_resource.docker_install]
   image = docker_image.mysql.name
-  name  = var.sql_db
+  name  = "example_${random_password.mysql_root_password.result}"
 
   env = [
-    "MYSQL_ROOT_PASSWORD=example_${random_password.mysql_root_password.result}",
+    "MYSQL_ROOT_PASSWORD=${random_password.mysql_root_password.result}",
     "MYSQL_DATABASE=${var.sql_db}",
     "MYSQL_USER=${var.sql_user}",
-    "MYSQL_PASSWORD=example_${random_password.mysql_user_password.result}",
-    "MYSQL_ROOT_HOST=%"
+    "MYSQL_PASSWORD=${random_password.mysql_user_password.result}",
+    "MYSQL_ROOT_HOST=127.0.0.1"
   ]
 
+  
   ports {
     internal = 3306
     external = 3306
