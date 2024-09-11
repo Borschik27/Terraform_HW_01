@@ -76,7 +76,6 @@ resource "random_password" "mysql_root_password" {
   special = false
 }
 
-
 # Генерация случайного пароля для пользователя wordpress
 resource "random_password" "mysql_user_password" {
   length  = 16
@@ -96,7 +95,6 @@ resource "docker_container" "mysql" {
     "MYSQL_ROOT_HOST=127.0.0.1"
   ]
 
-  
   ports {
     internal = 3306
     external = 3306

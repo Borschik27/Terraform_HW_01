@@ -20,6 +20,18 @@ variable "vpc_name" {
   description = "VPC network & subnet name"
 }
 
+variable "default_zone" {
+  type        = string
+  default     = "ru-central1-a"
+  description = "https://cloud.yandex.ru/docs/overview/concepts/geo-scope"
+}
+
+variable "default_cidr" {
+  type        = list(string)
+  description = "https://cloud.yandex.ru/docs/vpc/operations/subnet-create"
+  default     = ["10.1.1.0/24"]
+}
+
 variable "network_id" {
   type        = string
   description = " network id"
@@ -30,17 +42,6 @@ variable "ppkyc" {
   description = "Path to key"
 }
 
-variable "default_zone" {
-  type        = string
-  default     = "ru-central1-a"
-  description = "https://cloud.yandex.ru/docs/overview/concepts/geo-scope"
-}
-
-variable "default_cidr" {
-  type        = list(string)
-  description = "https://cloud.yandex.ru/docs/vpc/operations/subnet-create"
-  default     = ["10.128.0.0/24"]
-}
 
 variable "image_family" {
   type        = string
