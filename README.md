@@ -1,13 +1,15 @@
 ![image](https://github.com/user-attachments/assets/79f850d3-1bcc-4111-ae6e-950810b032fc)
 
 Задание 1
+
 1.3
+
 "result": "9ZisODVyRV1e3941"
 
 ![image](https://github.com/user-attachments/assets/a2ebf736-9ceb-452d-bcdd-4ceadc037f54)
 
 1.4
-
+Вывод команды terraform validate
 ```
 terraform validate
 ╷
@@ -29,7 +31,6 @@ terraform validate
 ```
 
 Ошибка заключается в том что в блоке ресурса отсутствует имя ресурса (в дальнейшем "docker_image" "nginx" "docker_container" "nginx")
-
 ```
 docker ps
 CONTAINER ID   IMAGE          COMMAND                  CREATED          STATUS          PORTS                  NAMES
@@ -56,8 +57,8 @@ cc15695b8c6b   39286ab8a5e1   "/docker-entrypoint.…"   8 seconds ago   Up 7 se
 
 terraform apply -auto-approve - Выполняет действие при выполнении изменений без запроса подтверждения
 
-1.7
 
+1.7
 ```
 terraform destroy -auto-approve
 docker_image.nginx: Refreshing state... [id=sha256:39286ab8a5e14aeaf5fdd6e2fac76e0c8d31a0c07224f0ee5e6be502f12e93f3nginx:latest]
@@ -87,7 +88,6 @@ CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
 ```
 
 Вывод .tfstate
-
 ```
 {
   "version": 4,
@@ -101,8 +101,8 @@ CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
 ```
 
 1.8
-Удалению контейнера мешает флаг keep_locally = true
 
+Удалению контейнера мешает флаг keep_locally = true
 ```
 resource "docker_image" "nginx" {
   name = "nginx:latest"
@@ -114,7 +114,9 @@ resource "docker_image" "nginx" {
 
 
 Задача 2
+
 Код представлен в репозитории
+
 Виртуальная машина создавалась сразу в облаке 
 
 ```
